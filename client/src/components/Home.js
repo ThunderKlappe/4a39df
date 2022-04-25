@@ -64,15 +64,18 @@ const Home = ({ user, logout }) => {
 
   const postMessage = (body) => {
     try {
-      const data = saveMessage(body);
-
-      if (!body.conversationId) {
-        addNewConvo(body.recipientId, data.message);
-      } else {
-        addMessageToConversation(data);
-      }
-
-      sendMessage(data, body);
+      saveMessage(body)
+        .then((data) => {
+          if (!body.conversationId) {
+            addNewConvo(body.recipientId, data.message);
+          } else {
+            addMessageToConversation(data);
+          }
+          return data;
+        })
+        .then((data) => {
+          sendMessage(data, body);
+        });
     } catch (error) {
       console.error(error);
     }
@@ -87,9 +90,11 @@ const Home = ({ user, logout }) => {
           convo.id = message.conversationId;
         }
       });
-      setConversations(conversations);
+      //have to update the state with a shallow copy of the array or else React won't
+      //think that the state has changed
+      setConversations(conversations.slice());
     },
-    [setConversations, conversations],
+    [setConversations, conversations]
   );
   const addMessageToConversation = useCallback(
     (data) => {
@@ -111,9 +116,9 @@ const Home = ({ user, logout }) => {
           convo.latestMessageText = message.text;
         }
       });
-      setConversations(conversations);
+      setConversations(conversations.slice());
     },
-    [setConversations, conversations],
+    [setConversations, conversations]
   );
 
   const setActiveChat = (username) => {
@@ -130,7 +135,7 @@ const Home = ({ user, logout }) => {
         } else {
           return convo;
         }
-      }),
+      })
     );
   }, []);
 
@@ -144,7 +149,7 @@ const Home = ({ user, logout }) => {
         } else {
           return convo;
         }
-      }),
+      })
     );
   }, []);
 
@@ -201,7 +206,7 @@ const Home = ({ user, logout }) => {
   return (
     <>
       <Button onClick={handleLogout}>Logout</Button>
-      <Grid container component="main" className={classes.root}>
+      <Grid container component='main' className={classes.root}>
         <CssBaseline />
         <SidebarContainer
           conversations={conversations}
