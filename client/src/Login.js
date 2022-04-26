@@ -9,8 +9,8 @@ import {
   TextField,
   InputAdornment,
 } from "@material-ui/core";
-import bubble from "./assets/bubble.svg";
 import { useClasses } from "./themes/splashpageStyles";
+import SplashPicture from "./components/SplashPicture";
 
 const Login = ({ user, login }) => {
   const history = useHistory();
@@ -32,17 +32,7 @@ const Login = ({ user, login }) => {
 
   return (
     <Grid container className={classes.root}>
-      <Box className={classes.sideImage}>
-        <Box
-          className={classes.bubbleImage}
-          component='img'
-          src={bubble}
-          alt='A speech bubble icon'
-        />
-        <Typography className={`${classes.titleText} ${classes.largeText}`}>
-          Converse with anyone with any language
-        </Typography>
-      </Box>
+      <SplashPicture />
       <Box className={classes.contentContainer}>
         <Box className={classes.topContainer}>
           <Box className={classes.topWrapper}>
