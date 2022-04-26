@@ -7,7 +7,6 @@ const useStyles = makeStyles(() => ({
     height: "100vh",
   },
   sideImage: {
-    height: "calc(425/700 * 100vw)",
     width: "calc(425/700 * 100vh)",
     backgroundSize: "100% auto",
     background: [
@@ -22,29 +21,70 @@ const useStyles = makeStyles(() => ({
   contentContainer: {
     display: "flex",
     flexDirection: "column",
+    alignItems: "center",
+    flex: 1,
   },
-  registerContainer: {
+  topContainer: {
+    display: "flex",
+    justifyContent: "flex-end",
+    width: "-webkit-fill-available",
+    fallbacks: { width: "-moz-available" },
+  },
+  topWrapper: {
     display: "flex",
     gap: 30,
+    margin: "30px 42px",
+    alignItems: "center",
+    "& a": {
+      width: 170,
+    },
+  },
+  mainContainer: {
+    display: "flex",
+    justifyContent: "center",
+    flexDirection: "column",
+    alignItems: "center",
+    width: "65%",
+    flex: 1,
+  },
+  mainWrapper: {
+    marginTop: -100,
+    width: "100%",
+  },
+  submitContainer: {
+    justifyContent: "center",
+    marginTop: 42,
+    "& button": {
+      width: 160,
+    },
   },
   bubbleImage: {
     height: "10%",
     marginTop: "25vh",
     marginBottom: "5vh",
   },
+  largeText: {
+    fontSize: "1.625em",
+  },
   titleText: {
     width: "60%",
-    fontSize: "3.5vh",
+    fontWeight: 400,
     color: "white",
     textAlign: "center",
   },
   headerText: {
-    fontSize: "3.5vh",
     fontWeight: 600,
+    marginBottom: 17,
   },
-  switchText: {
+  instructionText: {
     color: "#B0B0B0",
-    fontSize: 14,
+    fontSize: ".875em",
+  },
+  forgotLink: {
+    textDecoration: "none",
+    color: "#3A8DFF",
+    fontWeight: 600,
+    fontSize: 12,
   },
 }));
 
