@@ -8,15 +8,18 @@ const useStyles = makeStyles(() => ({
   },
   sideImage: {
     width: "calc(425/700 * 100vh)",
-    backgroundSize: "100% auto",
+    backgroundSize: "cover",
     background: [
       "linear-gradient(180deg, rgba(58, 141, 255, .85) 0%, rgba(134, 185, 255, .85) 100%)",
-      `url(${bgImg})`,
+      `url(${bgImg}) no-repeat`,
     ],
     backgroundBlendMode: "normal",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    justifyContent: "center",
+    padding: "30px 0",
+    gap: "5vh",
   },
   contentContainer: {
     display: "flex",
@@ -48,20 +51,17 @@ const useStyles = makeStyles(() => ({
     flex: 1,
   },
   mainWrapper: {
-    marginTop: -100,
     width: "100%",
   },
   submitContainer: {
     justifyContent: "center",
-    marginTop: 42,
+    padding: "42px 0",
     "& button": {
       width: 160,
     },
   },
   bubbleImage: {
-    height: "10%",
-    marginTop: "25vh",
-    marginBottom: "5vh",
+    height: "10vh",
   },
   largeText: {
     fontSize: "1.625em",
