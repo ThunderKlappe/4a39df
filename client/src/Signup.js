@@ -54,7 +54,7 @@ const Signup = ({ user, register }) => {
               variant='contained'
               size='large'
             >
-              Log in
+              Login
             </Button>
           </Box>
         </Box>
