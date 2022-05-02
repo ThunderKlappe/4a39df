@@ -12,7 +12,7 @@ const bob = {
 };
 
 describe("Add feature: send pictures through chat", () => {
-  it("setup", () => {
+  it.skip("setup", () => {
     cy.signup(alice.username, alice.email, alice.password);
     cy.logout();
     cy.signup(bob.username, bob.email, bob.password);
@@ -28,6 +28,7 @@ describe("Add feature: send pictures through chat", () => {
     cy.get("input[type=file]")
       .invoke("show")
       .selectFile("src/assets/bg-img.png");
+    cy.get("input[name=text]").type("{enter}");
     cy.contains("200");
   });
 });
