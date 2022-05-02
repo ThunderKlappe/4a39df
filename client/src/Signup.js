@@ -12,6 +12,7 @@ import {
 import SplashPicture from "./components/SplashPicture";
 import { useClasses } from "./themes/splashpageStyles";
 
+
 const Signup = ({ user, register }) => {
   const history = useHistory();
   const classes = useClasses();
