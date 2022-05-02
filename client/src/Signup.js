@@ -48,11 +48,11 @@ const Signup = ({ user, register }) => {
               Already have an account?
             </Typography>
             <Button
-              href='/login'
-              to='/login'
-              color='secondary'
-              variant='contained'
-              size='large'
+              href="/login"
+              to="/login"
+              color="secondary"
+              variant="contained"
+              size="large"
             >
               Login
             </Button>
@@ -66,16 +66,16 @@ const Signup = ({ user, register }) => {
               Create an account.
             </Typography>
             <form onSubmit={handleRegister}>
-              <Grid container direction='column' spacing={3}>
+              <Grid container direction="column" spacing={3}>
                 <Grid item>
                   <Typography className={classes.instructionText}>
                     Username
                   </Typography>
-                  <FormControl fullWidth margin='normal' required>
+                  <FormControl fullWidth margin="normal" required>
                     <TextField
-                      aria-label='username'
-                      name='username'
-                      type='text'
+                      aria-label="username"
+                      name="username"
+                      type="text"
                       required
                     />
                   </FormControl>
@@ -84,11 +84,11 @@ const Signup = ({ user, register }) => {
                   <Typography className={classes.instructionText}>
                     E-mail address
                   </Typography>
-                  <FormControl fullWidth margin='normal' required>
+                  <FormControl fullWidth margin="normal" required>
                     <TextField
-                      aria-label='e-mail address'
-                      name='email'
-                      type='email'
+                      aria-label="e-mail address"
+                      name="email"
+                      type="email"
                       required
                     />
                   </FormControl>
@@ -100,13 +100,13 @@ const Signup = ({ user, register }) => {
                   <FormControl
                     error={!!formErrorMessage.confirmPassword}
                     fullWidth
-                    margin='normal'
+                    margin="normal"
                     required
                   >
                     <TextField
-                      aria-label='password'
-                      type='password'
-                      name='password'
+                      aria-label="password"
+                      type="password"
+                      name="password"
                       inputProps={{ minLength: 6 }}
                       required
                     />
@@ -122,13 +122,13 @@ const Signup = ({ user, register }) => {
                   <FormControl
                     error={!!formErrorMessage.confirmPassword}
                     fullWidth
-                    margin='normal'
+                    margin="normal"
                     required
                   >
                     <TextField
-                      aria-label='confirm password'
-                      type='password'
-                      name='confirmPassword'
+                      aria-label="confirm password"
+                      type="password"
+                      name="confirmPassword"
                       inputProps={{ minLength: 6 }}
                       required
                     />
@@ -139,10 +139,10 @@ const Signup = ({ user, register }) => {
                 </Grid>
                 <Grid container className={classes.submitContainer}>
                   <Button
-                    type='submit'
-                    color='primary'
-                    variant='contained'
-                    size='large'
+                    type="submit"
+                    color="primary"
+                    variant="contained"
+                    size="large"
                   >
                     Create
                   </Button>

@@ -5,8 +5,8 @@ const db = new Sequelize(
   {
     logging: false,
     dialect: "postgres",
-    username: "timschley",
-    password: "pass",
+    username: process.env.DATABASE_USERNAME,
+    password: process.env.DATABASE_PASSWORD,
   }
 );
 

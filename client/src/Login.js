@@ -40,11 +40,11 @@ const Login = ({ user, login }) => {
               Don't have an account?
             </Typography>
             <Button
-              href='/register'
-              to='/register'
-              color='secondary'
-              variant='contained'
-              size='large'
+              href="/register"
+              to="/register"
+              color="secondary"
+              variant="contained"
+              size="large"
             >
               Create Account
             </Button>
@@ -58,16 +58,16 @@ const Login = ({ user, login }) => {
               Welcome Back!
             </Typography>
             <form onSubmit={handleLogin}>
-              <Grid container direction='column' spacing={3}>
+              <Grid container direction="column" spacing={3}>
                 <Grid item>
                   <Typography className={classes.instructionText}>
                     Username
                   </Typography>
-                  <FormControl fullWidth margin='normal' required>
+                  <FormControl fullWidth margin="normal" required>
                     <TextField
-                      aria-label='username'
-                      name='username'
-                      type='text'
+                      aria-label="username"
+                      name="username"
+                      type="text"
                     />
                   </FormControl>
                 </Grid>
@@ -75,18 +75,18 @@ const Login = ({ user, login }) => {
                   <Typography className={classes.instructionText}>
                     Password
                   </Typography>
-                  <FormControl fullWidth margin='normal' required>
+                  <FormControl fullWidth margin="normal" required>
                     <TextField
-                      aria-label='password'
-                      type='password'
-                      name='password'
+                      aria-label="password"
+                      type="password"
+                      name="password"
                       InputProps={{
                         endAdornment: (
-                          <InputAdornment position='end'>
+                          <InputAdornment position="end">
                             <a
                               className={classes.forgotLink}
-                              href='/forgot'
-                              to='/forgot'
+                              href="/forgot"
+                              to="/forgot"
                             >
                               Forgot?
                             </a>
@@ -98,10 +98,10 @@ const Login = ({ user, login }) => {
                 </Grid>
                 <Grid container className={classes.submitContainer}>
                   <Button
-                    type='submit'
-                    color='primary'
-                    variant='contained'
-                    size='large'
+                    type="submit"
+                    color="primary"
+                    variant="contained"
+                    size="large"
                   >
                     Login
                   </Button>
