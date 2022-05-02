@@ -35,7 +35,7 @@ const Input = ({ otherUser, conversationId, user, postMessage }) => {
   const classes = useStyles();
   const [text, setText] = useState("");
   const [previewSrc, setPreviewSrc] = useState("");
-  const [uploadPhotos, setUploadPhotos] = useState(null);
+  const [uploadPhotos, setUploadPhotos] = useState([]);
 
   const getPhoto = (photos) => {
     const reader = new FileReader();
@@ -43,7 +43,7 @@ const Input = ({ otherUser, conversationId, user, postMessage }) => {
     reader.onloadend = () => {
       setPreviewSrc(reader.result);
     };
-    setUploadPhotos(photos);
+    setUploadPhotos([...photos]);
   };
 
   const handleImage = async (image) => {
@@ -51,7 +51,6 @@ const Input = ({ otherUser, conversationId, user, postMessage }) => {
       const formData = new FormData();
       formData.append("file", image);
       formData.append("upload_preset", process.env.REACT_APP_UPLOAD_PRESET);
-      console.log(process.env);
 
       const uninterceptedAxiosInstance = axios.create();
       const response = await uninterceptedAxiosInstance.post(
@@ -65,12 +64,13 @@ const Input = ({ otherUser, conversationId, user, postMessage }) => {
   };
 
   const handleImages = async () => {
-    console.log(uploadPhotos);
     const attachments = [];
-    Array.from(uploadPhotos).forEach(async (photo) => {
-      const photoUrl = await handleImage(photo);
-      attachments.push(photoUrl);
-    });
+    if (uploadPhotos.length > 0) {
+      for (const photo of uploadPhotos) {
+        const photoUrl = await handleImage(photo);
+        attachments.push(photoUrl);
+      }
+    }
     return attachments;
   };
 
@@ -82,8 +82,7 @@ const Input = ({ otherUser, conversationId, user, postMessage }) => {
     event.preventDefault();
     const form = event.currentTarget;
     const formElements = form.elements;
-    const attachments = previewSrc ? await handleImages() : null;
-    console.log("atts", attachments);
+    const attachments = await handleImages();
     // add sender user info if posting to a brand new convo, so that the other user will have access to username, profile pic, etc.
     const reqBody = {
       text: formElements.text.value,
@@ -95,7 +94,7 @@ const Input = ({ otherUser, conversationId, user, postMessage }) => {
     await postMessage(reqBody);
     setText("");
     setPreviewSrc("");
-    setUploadPhotos(null);
+    setUploadPhotos([]);
   };
 
   return (

@@ -25,15 +25,33 @@ const useStyles = makeStyles(() => ({
     background: "#F4F6FA",
     borderRadius: "10px 10px 0 10px",
   },
+  photoMessage: {
+    height: 100,
+  },
 }));
 
-const SenderBubble = ({ time, text }) => {
+const SenderBubble = ({ time, text, attachments }) => {
   const classes = useStyles();
+
+  const attachmentImages = [];
+  if (attachments) {
+    attachments.forEach((att, index) => {
+      attachmentImages.push(
+        <img
+          key={index}
+          alt={`attachment ${index}`}
+          src={att}
+          className={classes.photoMessage}
+        />
+      );
+    });
+  }
 
   return (
     <Box className={classes.root}>
       <Typography className={classes.date}>{time}</Typography>
       <Box className={classes.bubble}>
+        {attachmentImages}
         <Typography className={classes.text}>{text}</Typography>
       </Box>
     </Box>
