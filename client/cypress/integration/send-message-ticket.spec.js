@@ -19,7 +19,7 @@ describe("Add feature: send pictures through chat", () => {
     cy.logout();
   });
 
-  it("selects a file", () => {
+  it("uploaded photo displays in messages", () => {
     cy.login(alice.username, alice.password);
 
     cy.get("input[name=search]").type("Bob");
@@ -29,6 +29,6 @@ describe("Add feature: send pictures through chat", () => {
       .invoke("show")
       .selectFile("src/assets/bg-img.png");
     cy.get("input[name=text]").type("{enter}");
-    cy.contains("200");
+    cy.get(".photoMessage");
   });
 });
