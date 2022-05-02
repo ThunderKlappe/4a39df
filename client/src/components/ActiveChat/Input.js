@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { FormControl, FilledInput } from "@material-ui/core";
+import axios from "axios";
+import { FormControl, FilledInput, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import PhotoUpload from "./PhotoUpload";
 
@@ -14,11 +15,64 @@ const useStyles = makeStyles(() => ({
     borderRadius: 8,
     marginBottom: 20,
   },
+  photosContainer: {
+    display: "flex",
+    alignItems: "center",
+    maxWidth: "50%",
+  },
+  previewImage: {
+    height: 50,
+    borderRadius: 5,
+    transition: ".25s",
+    cursor: "pointer",
+    "&:hover": {
+      filter: "brightness(.7)",
+    },
+  },
 }));
 
 const Input = ({ otherUser, conversationId, user, postMessage }) => {
   const classes = useStyles();
   const [text, setText] = useState("");
+  const [previewSrc, setPreviewSrc] = useState("");
+  const [uploadPhotos, setUploadPhotos] = useState(null);
+
+  const getPhoto = (photos) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(photos[0]);
+    reader.onloadend = () => {
+      setPreviewSrc(reader.result);
+    };
+    setUploadPhotos(photos);
+  };
+
+  const handleImage = async (image) => {
+    try {
+      const formData = new FormData();
+      formData.append("file", image);
+      formData.append("upload_preset", process.env.REACT_APP_UPLOAD_PRESET);
+      console.log(process.env);
+
+      const uninterceptedAxiosInstance = axios.create();
+      const response = await uninterceptedAxiosInstance.post(
+        `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`,
+        formData
+      );
+      return response.data.url;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleImages = async () => {
+    console.log(uploadPhotos);
+    const attachments = [];
+    Array.from(uploadPhotos).forEach(async (photo) => {
+      const photoUrl = await handleImage(photo);
+      attachments.push(photoUrl);
+    });
+    return attachments;
+  };
 
   const handleChange = (event) => {
     setText(event.target.value);
@@ -28,23 +82,24 @@ const Input = ({ otherUser, conversationId, user, postMessage }) => {
     event.preventDefault();
     const form = event.currentTarget;
     const formElements = form.elements;
+    const attachments = previewSrc ? await handleImages() : null;
+    console.log("atts", attachments);
     // add sender user info if posting to a brand new convo, so that the other user will have access to username, profile pic, etc.
     const reqBody = {
       text: formElements.text.value,
       recipientId: otherUser.id,
       conversationId,
       sender: conversationId ? null : user,
+      attachments: attachments,
     };
     await postMessage(reqBody);
     setText("");
-  };
-
-  const getPhoto = (photos) => {
-    console.log(photos);
+    setPreviewSrc("");
+    setUploadPhotos(null);
   };
 
   return (
-    <form className={classes.root} onSubmit={handleSubmit}>
+    <form id="text-form" className={classes.root} onSubmit={handleSubmit}>
       <FormControl fullWidth hiddenLabel>
         <FilledInput
           classes={{ root: classes.input }}
@@ -53,7 +108,18 @@ const Input = ({ otherUser, conversationId, user, postMessage }) => {
           value={text}
           name="text"
           onChange={handleChange}
-          endAdornment={<PhotoUpload getPhoto={getPhoto} />}
+          endAdornment={
+            <Box className={classes.photosContainer}>
+              {previewSrc && (
+                <img
+                  src={previewSrc}
+                  alt="upload preview"
+                  className={classes.previewImage}
+                />
+              )}
+              <PhotoUpload getPhoto={getPhoto} />
+            </Box>
+          }
         />
       </FormControl>
     </form>
