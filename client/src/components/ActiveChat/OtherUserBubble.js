@@ -29,10 +29,27 @@ const useStyles = makeStyles(() => ({
     letterSpacing: -0.2,
     padding: 8,
   },
+  photoMessage: {
+    height: 100,
+  },
 }));
 
-const OtherUserBubble = ({ text, time, otherUser }) => {
+const OtherUserBubble = ({ text, time, otherUser, attachments }) => {
   const classes = useStyles();
+
+  const attachmentImages = [];
+  if (attachments) {
+    attachments.forEach((att, index) => {
+      attachmentImages.push(
+        <img
+          key={index}
+          alt={`attachment ${index}`}
+          src={att}
+          className={classes.photoMessage}
+        />
+      );
+    });
+  }
 
   return (
     <Box className={classes.root}>
@@ -46,6 +63,7 @@ const OtherUserBubble = ({ text, time, otherUser }) => {
           {otherUser.username} {time}
         </Typography>
         <Box className={classes.bubble}>
+          {attachmentImages}
           <Typography className={classes.text}>{text}</Typography>
         </Box>
       </Box>
