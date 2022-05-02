@@ -194,7 +194,9 @@ const Home = ({ user, logout }) => {
         const { data } = await axios.get("/api/conversations");
         data.forEach((convo) => {
           convo.messages.sort(
-            (message1, message2) => message1.id - message2.id
+            (message1, message2) =>
+              new Date(message1.createdAt).getTime() -
+              new Date(message2.createdAt).getTime()
           );
         });
         setConversations(data);
