@@ -7,12 +7,13 @@ const PhotoUpload = ({ getPhoto }) => {
     <InputAdornment position="end">
       <label htmlFor="photo-upload">
         <input
+          multiple
           name="photo-upload"
           accept="image/*"
           id="photo-upload"
           type="file"
           hidden
-          onChange={(event) => getPhoto(event.target.files)}
+          onChange={(event) => getPhoto(event)}
         />
         <IconButton
           color="primary"

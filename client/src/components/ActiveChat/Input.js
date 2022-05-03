@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FormControl, FilledInput, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -34,17 +34,43 @@ const useStyles = makeStyles(() => ({
 const Input = ({ otherUser, conversationId, user, postMessage }) => {
   const classes = useStyles();
   const [text, setText] = useState("");
-  const [previewSrc, setPreviewSrc] = useState("");
+  const [previewPics, setPreviewPics] = useState([]);
   const [uploadPhotos, setUploadPhotos] = useState([]);
 
-  const getPhoto = (photos) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(photos[0]);
-    reader.onloadend = () => {
-      setPreviewSrc(reader.result);
-    };
-    setUploadPhotos([...photos]);
+  const getPhoto = async (event) => {
+    setUploadPhotos([...event.target.files]);
+    event.target.value = null;
   };
+
+  useEffect(() => {
+    const images = [];
+    const fileReaders = [];
+    let isCancel = false;
+    if (uploadPhotos.length) {
+      uploadPhotos.forEach((file) => {
+        const fileReader = new FileReader();
+        fileReaders.push(fileReader);
+        fileReader.onload = (e) => {
+          const { result } = e.target;
+          if (result) {
+            images.push(result);
+          }
+          if (images.length === uploadPhotos.length && !isCancel) {
+            setPreviewPics(images);
+          }
+        };
+        fileReader.readAsDataURL(file);
+      });
+    }
+    return () => {
+      isCancel = true;
+      fileReaders.forEach((fileReader) => {
+        if (fileReader.readyState === 1) {
+          fileReader.abort();
+        }
+      });
+    };
+  }, [uploadPhotos]);
 
   const handleImage = async (image) => {
     try {
@@ -93,7 +119,7 @@ const Input = ({ otherUser, conversationId, user, postMessage }) => {
     };
     await postMessage(reqBody);
     setText("");
-    setPreviewSrc("");
+    setPreviewPics([]);
     setUploadPhotos([]);
   };
 
@@ -109,13 +135,16 @@ const Input = ({ otherUser, conversationId, user, postMessage }) => {
           onChange={handleChange}
           endAdornment={
             <Box className={classes.photosContainer}>
-              {previewSrc && (
-                <img
-                  src={previewSrc}
-                  alt="upload preview"
-                  className={classes.previewImage}
-                />
-              )}
+              {previewPics.length
+                ? previewPics.map((preview, index) => (
+                    <img
+                      key={index}
+                      src={preview}
+                      alt={`upload preview ${index}`}
+                      className={classes.previewImage}
+                    />
+                  ))
+                : null}
               <PhotoUpload getPhoto={getPhoto} />
             </Box>
           }
