@@ -24,9 +24,20 @@ const useStyles = makeStyles(() => ({
   bubble: {
     background: "#F4F6FA",
     borderRadius: "10px 10px 0 10px",
+    width: "fit-content",
   },
-  photoMessage: {
+  photoMessageMult: {
+    height: 75,
+    margin: 5,
+    borderRadius: "10px 10px 0 10px",
+  },
+  photoMessageText: {
     height: 100,
+    borderRadius: "10px 10px 0px 0px",
+  },
+  photoMessageNoText: {
+    height: 100,
+    borderRadius: "10px 10px 0 10px",
   },
 }));
 
@@ -41,7 +52,13 @@ const SenderBubble = ({ time, text, attachments }) => {
           key={index}
           alt={`attachment ${index}`}
           src={att}
-          className={classes.photoMessage}
+          className={
+            attachments.length > 1
+              ? classes.photoMessageMult
+              : text
+              ? classes.photoMessageText
+              : classes.photoMessageNoText
+          }
         />
       );
     });
@@ -50,10 +67,20 @@ const SenderBubble = ({ time, text, attachments }) => {
   return (
     <Box className={classes.root}>
       <Typography className={classes.date}>{time}</Typography>
-      <Box className={classes.bubble}>
-        {attachmentImages}
-        <Typography className={classes.text}>{text}</Typography>
-      </Box>
+
+      {attachmentImages.length > 1 ? (
+        <Box className={classes.root}>
+          <Box className={text ? classes.bubble : null}>
+            <Typography className={classes.text}>{text}</Typography>
+          </Box>
+          <Box>{attachmentImages}</Box>
+        </Box>
+      ) : (
+        <Box className={text ? classes.bubble : null}>
+          {attachmentImages}
+          <Typography className={classes.text}>{text}</Typography>
+        </Box>
+      )}
     </Box>
   );
 };

@@ -21,6 +21,7 @@ const useStyles = makeStyles(() => ({
     maxWidth: "50%",
   },
   previewImage: {
+    marginLeft: 5,
     height: 50,
     borderRadius: 5,
     transition: ".25s",
