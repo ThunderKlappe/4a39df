@@ -29,6 +29,18 @@ describe("Add feature: send pictures through chat", () => {
       .invoke("show")
       .selectFile("src/assets/bg-img.png");
     cy.get("input[name=text]").type("{enter}");
-    cy.get(".makeStyles-photoMessage-66");
+    cy.get("img");
+  });
+  it("sends multiple photos", () => {
+    cy.login(alice.username, alice.password);
+
+    cy.get("input[name=search]").type("Bob");
+    cy.contains("Bob").click();
+
+    cy.get("input[type=file]")
+      .invoke("show")
+      .selectFile(["src/assets/bg-img.png", "src/assets/bubble.svg"]);
+    cy.get("input[name=text]").type("{enter}");
+    cy.get("img").its("length").should("eq", 2);
   });
 });
