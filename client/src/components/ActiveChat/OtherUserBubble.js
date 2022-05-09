@@ -5,7 +5,6 @@ import { Box, Typography, Avatar } from "@material-ui/core";
 const useStyles = makeStyles(() => ({
   root: {
     display: "flex",
-    flexDirection: "column",
   },
   avatar: {
     height: 30,
@@ -18,6 +17,10 @@ const useStyles = makeStyles(() => ({
     color: "#BECCE2",
     fontWeight: "bold",
     marginBottom: 5,
+  },
+  messageContainer: {
+    display: "flex",
+    flexDirection: "column",
   },
   bubble: {
     backgroundImage: "linear-gradient(225deg, #6CC1FF 0%, #3A8DFF 100%)",
@@ -81,7 +84,7 @@ const OtherUserBubble = ({ text, time, otherUser, attachments }) => {
           {otherUser.username} {time}
         </Typography>
         {attachmentImages.length > 1 ? (
-          <Box className={classes.root}>
+          <Box className={classes.messageContainer}>
             <Box className={text ? classes.bubble : null}>
               <Typography className={classes.text}>{text}</Typography>
             </Box>
