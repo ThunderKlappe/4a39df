@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import SplashPicture from "./components/SplashPicture";
 import { useClasses } from "./themes/splashpageStyles";
+import SwapSplash from "./components/SplashPage/SwapSplash";
 
 const Signup = ({ user, register }) => {
   const history = useHistory();
@@ -45,22 +46,11 @@ const Signup = ({ user, register }) => {
     <Grid container className={classes.root}>
       {windowSize > windowThreshold && <SplashPicture />}
       <Box className={classes.contentContainer}>
-        <Box className={classes.topContainer}>
-          <Box className={classes.topWrapper}>
-            <Typography className={classes.instructionText}>
-              Already have an account?
-            </Typography>
-            <Button
-              href="/login"
-              to="/login"
-              color="secondary"
-              variant="contained"
-              size="large"
-            >
-              Login
-            </Button>
-          </Box>
-        </Box>
+        <SwapSplash
+          header="Already have an account?"
+          button="Login"
+          link="/login"
+        />
         <Box className={classes.mainContainer}>
           <Box className={classes.mainWrapper}>
             <Typography
