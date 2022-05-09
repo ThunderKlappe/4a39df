@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Typography, Avatar } from "@material-ui/core";
+import { getAttachments } from "./Messages";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -52,24 +53,9 @@ const useStyles = makeStyles(() => ({
 const OtherUserBubble = ({ text, time, otherUser, attachments }) => {
   const classes = useStyles();
 
-  const attachmentImages = [];
+  let attachmentImages = [];
   if (attachments) {
-    attachments.forEach((att, index) => {
-      attachmentImages.push(
-        <img
-          key={att}
-          alt={`attachment ${index}`}
-          src={att}
-          className={
-            attachments.length > 1
-              ? classes.photoMessageMult
-              : text
-              ? classes.photoMessageText
-              : classes.photoMessageNoText
-          }
-        />
-      );
-    });
+    attachmentImages = getAttachments(text, attachments, classes);
   }
 
   return (
