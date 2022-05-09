@@ -3,9 +3,15 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Box, Typography } from "@material-ui/core";
 import { getAttachments } from "./Messages";
 import { useBaseClasses } from "../../themes/messageBubbleStyles";
+import MessageBubble from "./MessageBubble";
 
 const useStyles = makeStyles(() => ({
   root: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-end",
+  },
+  messageWrapper: {
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-end",
@@ -43,23 +49,11 @@ const SenderBubble = ({ time, text, attachments }) => {
     <Box className={classes.root}>
       <Typography className={classes.date}>{time}</Typography>
 
-      {attachmentImages.length > 1 ? (
-        <Box className={classes.root}>
-          <Box className={text ? classes.bubble : null}>
-            <Typography className={`${classes.text} ${classes.messageColor}`}>
-              {text}
-            </Typography>
-          </Box>
-          <Box>{attachmentImages}</Box>
-        </Box>
-      ) : (
-        <Box className={text ? classes.bubble : null}>
-          {attachmentImages}
-          <Typography className={`${classes.text} ${classes.messageColor}`}>
-            {text}
-          </Typography>
-        </Box>
-      )}
+      <MessageBubble
+        text={text}
+        attachments={attachmentImages}
+        classes={classes}
+      />
     </Box>
   );
 };

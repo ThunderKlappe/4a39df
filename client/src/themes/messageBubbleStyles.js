@@ -13,6 +13,10 @@ const useStyles = makeStyles(() => ({
     marginRight: 11,
     marginTop: 6,
   },
+  messageContainer: {
+    display: "flex",
+    flexDirection: "column",
+  },
   text: {
     fontSize: 14,
     letterSpacing: -0.2,

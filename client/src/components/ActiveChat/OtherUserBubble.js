@@ -3,14 +3,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Box, Typography, Avatar } from "@material-ui/core";
 import { getAttachments } from "./Messages";
 import { useBaseClasses } from "../../themes/messageBubbleStyles";
+import MessageBubble from "./MessageBubble";
 
 const useStyles = makeStyles(() => ({
   root: {
     display: "flex",
-  },
-  messageContainer: {
-    display: "flex",
-    flexDirection: "column",
   },
   bubble: {
     backgroundImage: "linear-gradient(225deg, #6CC1FF 0%, #3A8DFF 100%)",
@@ -52,23 +49,11 @@ const OtherUserBubble = ({ text, time, otherUser, attachments }) => {
         <Typography className={classes.date}>
           {otherUser.username} {time}
         </Typography>
-        {attachmentImages.length > 1 ? (
-          <Box className={classes.messageContainer}>
-            <Box className={text ? classes.bubble : null}>
-              <Typography className={`${classes.text} ${classes.messageColor}`}>
-                {text}
-              </Typography>
-            </Box>
-            <Box>{attachmentImages}</Box>
-          </Box>
-        ) : (
-          <Box className={text ? classes.bubble : null}>
-            {attachmentImages}
-            <Typography className={`${classes.text} ${classes.messageColor}`}>
-              {text}
-            </Typography>
-          </Box>
-        )}
+        <MessageBubble
+          text={text}
+          attachments={attachmentImages}
+          classes={classes}
+        />
       </Box>
     </Box>
   );
