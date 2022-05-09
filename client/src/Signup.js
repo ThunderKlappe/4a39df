@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
-import {
-  Grid,
-  Box,
-  Typography,
-  Button,
-  FormControl,
-  TextField,
-  FormHelperText,
-} from "@material-ui/core";
+import { useHistory } from "react-router-dom";
+import { Grid, Box, Typography, Button } from "@material-ui/core";
+import SplashPicture from "./components/SplashPage/SplashPicture";
+import { useClasses } from "./themes/splashpageStyles";
+import SwapSplash from "./components/SplashPage/SwapSplash";
+import SplashInput from "./components/SplashPage/SplashInput";
+
 
 const Signup = ({ user, register }) => {
   const history = useHistory();
+  const classes = useClasses();
 
   const [formErrorMessage, setFormErrorMessage] = useState({});
 
@@ -35,74 +33,65 @@ const Signup = ({ user, register }) => {
     if (user && user.id) history.push("/home");
   }, [user, history]);
 
+  const windowSize = window.innerWidth;
+  const windowThreshold = 850;
+
   return (
-    <Grid container justifyContent="center">
-      <Box>
-        <Grid container item>
-          <Typography>Need to log in?</Typography>
-          <Link href="/login" to="/login">
-            <Button>Login</Button>
-          </Link>
-        </Grid>
-        <form onSubmit={handleRegister}>
-          <Grid>
-            <Grid>
-              <FormControl>
-                <TextField
-                  aria-label="username"
+    <Grid container className={classes.root}>
+      {windowSize > windowThreshold && <SplashPicture />}
+      <Box className={classes.contentContainer}>
+        <SwapSplash
+          header="Already have an account?"
+          button="Login"
+          link="/login"
+        />
+        <Box className={classes.mainContainer}>
+          <Box className={classes.mainWrapper}>
+            <Typography
+              className={`${classes.headerText} ${classes.largeText}`}
+            >
+              Create an account.
+            </Typography>
+            <form onSubmit={handleRegister}>
+              <Grid container direction="column" spacing={3}>
+                <SplashInput
                   label="Username"
-                  name="username"
+                  inputName="username"
                   type="text"
-                  required
                 />
-              </FormControl>
-            </Grid>
-            <Grid>
-              <FormControl>
-                <TextField
+                <SplashInput
                   label="E-mail address"
-                  aria-label="e-mail address"
+                  inputName="email"
                   type="email"
-                  name="email"
-                  required
                 />
-              </FormControl>
-            </Grid>
-            <Grid>
-              <FormControl error={!!formErrorMessage.confirmPassword}>
-                <TextField
-                  aria-label="password"
+                <SplashInput
                   label="Password"
+                  inputName="password"
                   type="password"
                   inputProps={{ minLength: 6 }}
-                  name="password"
-                  required
+                  formErrorMessage={formErrorMessage}
                 />
-                <FormHelperText>
-                  {formErrorMessage.confirmPassword}
-                </FormHelperText>
-              </FormControl>
-            </Grid>
-            <Grid>
-              <FormControl error={!!formErrorMessage.confirmPassword}>
-                <TextField
+                <SplashInput
                   label="Confirm Password"
-                  aria-label="confirm password"
+                  inputName="confirmPassword"
                   type="password"
                   inputProps={{ minLength: 6 }}
-                  name="confirmPassword"
-                  required
+                  formErrorMessage={formErrorMessage}
                 />
-                <FormHelperText>
-                  {formErrorMessage.confirmPassword}
-                </FormHelperText>
-              </FormControl>
-            </Grid>
-            <Button type="submit" variant="contained" size="large">
-              Create
-            </Button>
-          </Grid>
-        </form>
+                <Grid container className={classes.submitContainer}>
+                  <Button
+                    type="submit"
+                    color="primary"
+                    variant="contained"
+                    size="large"
+                  >
+                    Create
+                  </Button>
+                </Grid>
+              </Grid>
+            </form>
+          </Box>
+        </Box>
       </Box>
     </Grid>
   );
