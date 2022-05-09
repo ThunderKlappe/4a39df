@@ -9,7 +9,7 @@ import {
   TextField,
   FormHelperText,
 } from "@material-ui/core";
-import SplashPicture from "./components/SplashPicture";
+import SplashPicture from "./components/SplashPage/SplashPicture";
 import { useClasses } from "./themes/splashpageStyles";
 import SwapSplash from "./components/SplashPage/SwapSplash";
 

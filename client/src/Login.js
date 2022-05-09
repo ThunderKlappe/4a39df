@@ -11,7 +11,7 @@ import {
   Link,
 } from "@material-ui/core";
 import { useClasses } from "./themes/splashpageStyles";
-import SplashPicture from "./components/SplashPicture";
+import SplashPicture from "./components/SplashPage/SplashPicture";
 import SwapSplash from "./components/SplashPage/SwapSplash";
 
 const Login = ({ user, login }) => {

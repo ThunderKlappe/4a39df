@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography } from "@material-ui/core";
-import bubble from "../assets/bubble.svg";
-import { useClasses } from "../themes/splashpageStyles";
+import bubble from "../../assets/bubble.svg";
+import { useClasses } from "../../themes/splashpageStyles";
 
 const SplashPicture = () => {
   const classes = useClasses();
@@ -10,9 +10,9 @@ const SplashPicture = () => {
     <Box className={classes.sideImage}>
       <Box
         className={classes.bubbleImage}
-        component='img'
+        component="img"
         src={bubble}
-        alt='A speech bubble icon'
+        alt="A speech bubble icon"
       />
       <Typography className={`${classes.titleText} ${classes.largeText}`}>
         Converse with anyone with any language
