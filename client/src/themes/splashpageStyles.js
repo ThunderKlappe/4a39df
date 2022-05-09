@@ -74,7 +74,7 @@ const useStyles = makeStyles(() => ({
   },
   headerText: {
     fontWeight: 600,
-    marginBottom: 17,
+    marginBottom: 33,
   },
   instructionText: {
     color: "#B0B0B0",
