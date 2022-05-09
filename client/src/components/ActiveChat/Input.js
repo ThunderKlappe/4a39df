@@ -80,11 +80,10 @@ const Input = ({ otherUser, conversationId, user, postMessage }) => {
       formData.append("file", image);
       formData.append("upload_preset", process.env.REACT_APP_UPLOAD_PRESET);
 
-      const response = await uninterceptedAxiosInstance.post(
+      return uninterceptedAxiosInstance.post(
         `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`,
         formData
       );
-      return response.data.url;
     } catch (error) {
       console.error(error);
     }
@@ -93,10 +92,9 @@ const Input = ({ otherUser, conversationId, user, postMessage }) => {
   const handleImages = async () => {
     const attachments = [];
     if (uploadPhotos.length > 0) {
-      for (const photo of uploadPhotos) {
-        const photoUrl = await handleImage(photo);
-        attachments.push(photoUrl);
-      }
+      const uploadPromises = uploadPhotos.map((photo) => handleImage(photo));
+      const photoResponses = await Promise.all(uploadPromises);
+      return photoResponses.map((response) => response.data.url);
     }
     return attachments;
   };
