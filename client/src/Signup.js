@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import {
-  Grid,
-  Box,
-  Typography,
-  Button,
-  FormControl,
-  TextField,
-  FormHelperText,
-} from "@material-ui/core";
+import { Grid, Box, Typography, Button } from "@material-ui/core";
 import SplashPicture from "./components/SplashPage/SplashPicture";
 import { useClasses } from "./themes/splashpageStyles";
 import SwapSplash from "./components/SplashPage/SwapSplash";
+import SplashInput from "./components/SplashPage/SplashInput";
 
 const Signup = ({ user, register }) => {
   const history = useHistory();
@@ -60,76 +53,30 @@ const Signup = ({ user, register }) => {
             </Typography>
             <form onSubmit={handleRegister}>
               <Grid container direction="column" spacing={3}>
-                <Grid item>
-                  <Typography className={classes.instructionText}>
-                    Username
-                  </Typography>
-                  <FormControl fullWidth margin="normal" required>
-                    <TextField
-                      aria-label="username"
-                      name="username"
-                      type="text"
-                      required
-                    />
-                  </FormControl>
-                </Grid>
-                <Grid item>
-                  <Typography className={classes.instructionText}>
-                    E-mail address
-                  </Typography>
-                  <FormControl fullWidth margin="normal" required>
-                    <TextField
-                      aria-label="e-mail address"
-                      name="email"
-                      type="email"
-                      required
-                    />
-                  </FormControl>
-                </Grid>
-                <Grid item>
-                  <Typography className={classes.instructionText}>
-                    Password
-                  </Typography>
-                  <FormControl
-                    error={!!formErrorMessage.confirmPassword}
-                    fullWidth
-                    margin="normal"
-                    required
-                  >
-                    <TextField
-                      aria-label="password"
-                      type="password"
-                      name="password"
-                      inputProps={{ minLength: 6 }}
-                      required
-                    />
-                    <FormHelperText>
-                      {formErrorMessage.confirmPassword}
-                    </FormHelperText>
-                  </FormControl>
-                </Grid>
-                <Grid item>
-                  <Typography className={classes.instructionText}>
-                    Confirm Password
-                  </Typography>
-                  <FormControl
-                    error={!!formErrorMessage.confirmPassword}
-                    fullWidth
-                    margin="normal"
-                    required
-                  >
-                    <TextField
-                      aria-label="confirm password"
-                      type="password"
-                      name="confirmPassword"
-                      inputProps={{ minLength: 6 }}
-                      required
-                    />
-                    <FormHelperText>
-                      {formErrorMessage.confirmPassword}
-                    </FormHelperText>
-                  </FormControl>
-                </Grid>
+                <SplashInput
+                  label="Username"
+                  inputName="username"
+                  type="text"
+                />
+                <SplashInput
+                  label="E-mail address"
+                  inputName="email"
+                  type="email"
+                />
+                <SplashInput
+                  label="Password"
+                  inputName="password"
+                  type="password"
+                  inputProps={{ minLength: 6 }}
+                  formErrorMessage={formErrorMessage}
+                />
+                <SplashInput
+                  label="Confirm Password"
+                  inputName="confirmPassword"
+                  type="password"
+                  inputProps={{ minLength: 6 }}
+                  formErrorMessage={formErrorMessage}
+                />
                 <Grid container className={classes.submitContainer}>
                   <Button
                     type="submit"

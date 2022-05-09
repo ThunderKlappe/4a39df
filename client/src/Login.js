@@ -5,14 +5,13 @@ import {
   Box,
   Typography,
   Button,
-  FormControl,
-  TextField,
   InputAdornment,
   Link,
 } from "@material-ui/core";
 import { useClasses } from "./themes/splashpageStyles";
 import SplashPicture from "./components/SplashPage/SplashPicture";
 import SwapSplash from "./components/SplashPage/SwapSplash";
+import SplashInput from "./components/SplashPage/SplashInput";
 
 const Login = ({ user, login }) => {
   const history = useHistory();
@@ -53,43 +52,29 @@ const Login = ({ user, login }) => {
             </Typography>
             <form onSubmit={handleLogin}>
               <Grid container direction="column" spacing={3}>
-                <Grid item>
-                  <Typography className={classes.instructionText}>
-                    Username
-                  </Typography>
-                  <FormControl fullWidth margin="normal" required>
-                    <TextField
-                      aria-label="username"
-                      name="username"
-                      type="text"
-                    />
-                  </FormControl>
-                </Grid>
-                <Grid item>
-                  <Typography className={classes.instructionText}>
-                    Password
-                  </Typography>
-                  <FormControl fullWidth margin="normal" required>
-                    <TextField
-                      aria-label="password"
-                      type="password"
-                      name="password"
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <Link
-                              className={classes.forgotLink}
-                              href="/forgot"
-                              to="/forgot"
-                            >
-                              Forgot?
-                            </Link>
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
-                  </FormControl>
-                </Grid>
+                <SplashInput
+                  label="Username"
+                  inputName="username"
+                  type="text"
+                />
+                <SplashInput
+                  label="Password"
+                  inputName="password"
+                  type="password"
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <Link
+                          className={classes.forgotLink}
+                          href="/forgot"
+                          to="/forgot"
+                        >
+                          Forgot?
+                        </Link>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
                 <Grid container className={classes.submitContainer}>
                   <Button
                     type="submit"
