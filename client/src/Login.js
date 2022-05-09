@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {
   Grid,
   Box,
@@ -7,10 +7,14 @@ import {
   Button,
   FormControl,
   TextField,
+  InputAdornment,
 } from "@material-ui/core";
+import { useClasses } from "./themes/splashpageStyles";
+import SplashPicture from "./components/SplashPicture";
 
 const Login = ({ user, login }) => {
   const history = useHistory();
+  const classes = useClasses();
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -27,41 +31,85 @@ const Login = ({ user, login }) => {
   }, [user, history]);
 
   return (
-    <Grid container justifyContent="center">
-      <Box>
-        <Grid container item>
-          <Typography>Need to register?</Typography>
-          <Link href="/register" to="/register">
-            <Button>Register</Button>
-          </Link>
-        </Grid>
-        <form onSubmit={handleLogin}>
-          <Grid>
-            <Grid>
-              <FormControl margin="normal" required>
-                <TextField
-                  aria-label="username"
-                  label="Username"
-                  name="username"
-                  type="text"
-                />
-              </FormControl>
-            </Grid>
-            <FormControl margin="normal" required>
-              <TextField
-                label="password"
-                aria-label="password"
-                type="password"
-                name="password"
-              />
-            </FormControl>
-            <Grid>
-              <Button type="submit" variant="contained" size="large">
-                Login
-              </Button>
-            </Grid>
-          </Grid>
-        </form>
+    <Grid container className={classes.root}>
+      <SplashPicture />
+      <Box className={classes.contentContainer}>
+        <Box className={classes.topContainer}>
+          <Box className={classes.topWrapper}>
+            <Typography className={classes.instructionText}>
+              Don't have an account?
+            </Typography>
+            <Button
+              href="/register"
+              to="/register"
+              color="secondary"
+              variant="contained"
+              size="large"
+            >
+              Create Account
+            </Button>
+          </Box>
+        </Box>
+        <Box className={classes.mainContainer}>
+          <Box className={classes.mainWrapper}>
+            <Typography
+              className={`${classes.headerText} ${classes.largeText}`}
+            >
+              Welcome Back!
+            </Typography>
+            <form onSubmit={handleLogin}>
+              <Grid container direction="column" spacing={3}>
+                <Grid item>
+                  <Typography className={classes.instructionText}>
+                    Username
+                  </Typography>
+                  <FormControl fullWidth margin="normal" required>
+                    <TextField
+                      aria-label="username"
+                      name="username"
+                      type="text"
+                    />
+                  </FormControl>
+                </Grid>
+                <Grid item>
+                  <Typography className={classes.instructionText}>
+                    Password
+                  </Typography>
+                  <FormControl fullWidth margin="normal" required>
+                    <TextField
+                      aria-label="password"
+                      type="password"
+                      name="password"
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <a
+                              className={classes.forgotLink}
+                              href="/forgot"
+                              to="/forgot"
+                            >
+                              Forgot?
+                            </a>
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  </FormControl>
+                </Grid>
+                <Grid container className={classes.submitContainer}>
+                  <Button
+                    type="submit"
+                    color="primary"
+                    variant="contained"
+                    size="large"
+                  >
+                    Login
+                  </Button>
+                </Grid>
+              </Grid>
+            </form>
+          </Box>
+        </Box>
       </Box>
     </Grid>
   );

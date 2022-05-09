@@ -1,6 +1,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Typography } from "@material-ui/core";
+import { getAttachments } from "./Messages";
+import { useBaseClasses } from "../../themes/messageBubbleStyles";
+import MessageBubble from "./MessageBubble";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -8,34 +11,49 @@ const useStyles = makeStyles(() => ({
     flexDirection: "column",
     alignItems: "flex-end",
   },
-  date: {
-    fontSize: 11,
-    color: "#BECCE2",
-    fontWeight: "bold",
-    marginBottom: 5,
-  },
-  text: {
-    fontSize: 14,
-    color: "#91A3C0",
-    letterSpacing: -0.2,
-    padding: 8,
-    fontWeight: "bold",
+  messageWrapper: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-end",
   },
   bubble: {
     background: "#F4F6FA",
     borderRadius: "10px 10px 0 10px",
+    width: "fit-content",
+  },
+  messageColor: {
+    color: "#91A3C0",
+  },
+  photoMultRadius: {
+    borderRadius: "10px 10px 0 10px",
+  },
+  photoTextRadius: {
+    borderRadius: "10px 10px 0px 0px",
+  },
+  photoNoTextRadius: {
+    borderRadius: "10px 10px 0 10px",
   },
 }));
 
-const SenderBubble = ({ time, text }) => {
-  const classes = useStyles();
+const SenderBubble = ({ time, text, attachments }) => {
+  const baseClasses = useBaseClasses();
+  const otherClasses = useStyles();
+  const classes = { ...baseClasses, ...otherClasses };
+
+  let attachmentImages = [];
+  if (attachments) {
+    attachmentImages = getAttachments(text, attachments, classes);
+  }
 
   return (
     <Box className={classes.root}>
       <Typography className={classes.date}>{time}</Typography>
-      <Box className={classes.bubble}>
-        <Typography className={classes.text}>{text}</Typography>
-      </Box>
+
+      <MessageBubble
+        text={text}
+        attachments={attachmentImages}
+        classes={classes}
+      />
     </Box>
   );
 };
