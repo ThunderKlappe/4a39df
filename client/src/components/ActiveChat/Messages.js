@@ -11,10 +11,10 @@ export const getAttachments = (text, attachments, classes) =>
       src={att}
       className={
         attachments.length > 1
-          ? classes.photoMessageMult
+          ? `${classes.photoMessageMult} ${classes.photoMultRadius}`
           : text
-          ? classes.photoMessageText
-          : classes.photoMessageNoText
+          ? `${classes.photoMessageText} ${classes.photoTextRadius}`
+          : `${classes.photoMessageNoText} ${classes.photoNoTextRadius}`
       }
     />
   ));

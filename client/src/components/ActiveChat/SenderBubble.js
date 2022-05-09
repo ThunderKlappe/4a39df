@@ -2,6 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Typography } from "@material-ui/core";
 import { getAttachments } from "./Messages";
+import { useBaseClasses } from "../../themes/messageBubbleStyles";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -9,41 +10,29 @@ const useStyles = makeStyles(() => ({
     flexDirection: "column",
     alignItems: "flex-end",
   },
-  date: {
-    fontSize: 11,
-    color: "#BECCE2",
-    fontWeight: "bold",
-    marginBottom: 5,
-  },
-  text: {
-    fontSize: 14,
-    color: "#91A3C0",
-    letterSpacing: -0.2,
-    padding: 8,
-    fontWeight: "bold",
-  },
   bubble: {
     background: "#F4F6FA",
     borderRadius: "10px 10px 0 10px",
     width: "fit-content",
   },
-  photoMessageMult: {
-    height: 75,
-    margin: 5,
+  messageColor: {
+    color: "#91A3C0",
+  },
+  photoMultRadius: {
     borderRadius: "10px 10px 0 10px",
   },
-  photoMessageText: {
-    height: 100,
+  photoTextRadius: {
     borderRadius: "10px 10px 0px 0px",
   },
-  photoMessageNoText: {
-    height: 100,
+  photoNoTextRadius: {
     borderRadius: "10px 10px 0 10px",
   },
 }));
 
 const SenderBubble = ({ time, text, attachments }) => {
-  const classes = useStyles();
+  const baseClasses = useBaseClasses();
+  const otherClasses = useStyles();
+  const classes = { ...baseClasses, ...otherClasses };
 
   let attachmentImages = [];
   if (attachments) {
@@ -57,14 +46,18 @@ const SenderBubble = ({ time, text, attachments }) => {
       {attachmentImages.length > 1 ? (
         <Box className={classes.root}>
           <Box className={text ? classes.bubble : null}>
-            <Typography className={classes.text}>{text}</Typography>
+            <Typography className={`${classes.text} ${classes.messageColor}`}>
+              {text}
+            </Typography>
           </Box>
           <Box>{attachmentImages}</Box>
         </Box>
       ) : (
         <Box className={text ? classes.bubble : null}>
           {attachmentImages}
-          <Typography className={classes.text}>{text}</Typography>
+          <Typography className={`${classes.text} ${classes.messageColor}`}>
+            {text}
+          </Typography>
         </Box>
       )}
     </Box>

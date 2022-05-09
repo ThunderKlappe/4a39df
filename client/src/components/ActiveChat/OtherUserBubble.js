@@ -2,22 +2,11 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Typography, Avatar } from "@material-ui/core";
 import { getAttachments } from "./Messages";
+import { useBaseClasses } from "../../themes/messageBubbleStyles";
 
 const useStyles = makeStyles(() => ({
   root: {
     display: "flex",
-  },
-  avatar: {
-    height: 30,
-    width: 30,
-    marginRight: 11,
-    marginTop: 6,
-  },
-  usernameDate: {
-    fontSize: 11,
-    color: "#BECCE2",
-    fontWeight: "bold",
-    marginBottom: 5,
   },
   messageContainer: {
     display: "flex",
@@ -28,30 +17,24 @@ const useStyles = makeStyles(() => ({
     borderRadius: "0 10px 10px 10px",
     width: "fit-content",
   },
-  text: {
-    fontSize: 14,
-    fontWeight: "bold",
+  messageColor: {
     color: "#FFFFFF",
-    letterSpacing: -0.2,
-    padding: 8,
   },
-  photoMessageMult: {
-    height: 75,
-    margin: 5,
+  photoMultRadius: {
     borderRadius: "0 10px 10px 10px",
   },
-  photoMessageText: {
-    height: 100,
+  photoTextRadius: {
     borderRadius: "0px 10px 0px 0px",
   },
-  photoMessageNoText: {
-    height: 100,
+  photoNoTextRadius: {
     borderRadius: "0 10px 10px 10px",
   },
 }));
 
 const OtherUserBubble = ({ text, time, otherUser, attachments }) => {
-  const classes = useStyles();
+  const baseClasses = useBaseClasses();
+  const otherClasses = useStyles();
+  const classes = { ...baseClasses, ...otherClasses };
 
   let attachmentImages = [];
   if (attachments) {
@@ -66,20 +49,24 @@ const OtherUserBubble = ({ text, time, otherUser, attachments }) => {
         className={classes.avatar}
       />
       <Box>
-        <Typography className={classes.usernameDate}>
+        <Typography className={classes.date}>
           {otherUser.username} {time}
         </Typography>
         {attachmentImages.length > 1 ? (
           <Box className={classes.messageContainer}>
             <Box className={text ? classes.bubble : null}>
-              <Typography className={classes.text}>{text}</Typography>
+              <Typography className={`${classes.text} ${classes.messageColor}`}>
+                {text}
+              </Typography>
             </Box>
             <Box>{attachmentImages}</Box>
           </Box>
         ) : (
           <Box className={text ? classes.bubble : null}>
             {attachmentImages}
-            <Typography className={classes.text}>{text}</Typography>
+            <Typography className={`${classes.text} ${classes.messageColor}`}>
+              {text}
+            </Typography>
           </Box>
         )}
       </Box>
