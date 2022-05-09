@@ -8,6 +8,7 @@ import {
   FormControl,
   TextField,
   InputAdornment,
+  Link,
 } from "@material-ui/core";
 import { useClasses } from "./themes/splashpageStyles";
 import SplashPicture from "./components/SplashPicture";
@@ -86,13 +87,13 @@ const Login = ({ user, login }) => {
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="end">
-                            <a
+                            <Link
                               className={classes.forgotLink}
                               href="/forgot"
                               to="/forgot"
                             >
                               Forgot?
-                            </a>
+                            </Link>
                           </InputAdornment>
                         ),
                       }}
