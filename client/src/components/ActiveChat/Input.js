@@ -34,6 +34,7 @@ const useStyles = makeStyles(() => ({
 
 const Input = ({ otherUser, conversationId, user, postMessage }) => {
   const classes = useStyles();
+  const uninterceptedAxiosInstance = axios.create();
   const [text, setText] = useState("");
   const [previewPics, setPreviewPics] = useState([]);
   const [uploadPhotos, setUploadPhotos] = useState([]);
@@ -79,7 +80,6 @@ const Input = ({ otherUser, conversationId, user, postMessage }) => {
       formData.append("file", image);
       formData.append("upload_preset", process.env.REACT_APP_UPLOAD_PRESET);
 
-      const uninterceptedAxiosInstance = axios.create();
       const response = await uninterceptedAxiosInstance.post(
         `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`,
         formData
