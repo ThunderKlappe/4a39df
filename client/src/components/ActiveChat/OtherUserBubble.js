@@ -57,7 +57,7 @@ const OtherUserBubble = ({ text, time, otherUser, attachments }) => {
     attachments.forEach((att, index) => {
       attachmentImages.push(
         <img
-          key={index}
+          key={att}
           alt={`attachment ${index}`}
           src={att}
           className={

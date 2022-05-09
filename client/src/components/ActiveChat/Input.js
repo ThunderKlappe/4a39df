@@ -135,14 +135,16 @@ const Input = ({ otherUser, conversationId, user, postMessage }) => {
           endAdornment={
             <Box className={classes.photosContainer}>
               {previewPics.length
-                ? previewPics.map((preview, index) => (
-                    <img
-                      key={index}
-                      src={preview}
-                      alt={`upload preview ${index}`}
-                      className={classes.previewImage}
-                    />
-                  ))
+                ? previewPics.map((preview, index) => {
+                    return (
+                      <img
+                        key={preview}
+                        src={preview}
+                        alt={`upload preview ${index}`}
+                        className={classes.previewImage}
+                      />
+                    );
+                  })
                 : null}
               <PhotoUpload getPhoto={getPhoto} />
             </Box>
