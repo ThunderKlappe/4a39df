@@ -6,6 +6,7 @@ import { useClasses } from "./themes/splashpageStyles";
 import SwapSplash from "./components/SplashPage/SwapSplash";
 import SplashInput from "./components/SplashPage/SplashInput";
 
+
 const Signup = ({ user, register }) => {
   const history = useHistory();
   const classes = useClasses();
